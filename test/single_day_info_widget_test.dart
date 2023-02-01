@@ -12,7 +12,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'package:sunrise_sunset_calculator/single_day_info.dart';
 
-import 'expect_text_in_order.dart';
+import 'test_util/expect_text_in_order.dart';
 
 void main() {
   testWidgets('SingleDayInfo widget test', (WidgetTester tester) async {
