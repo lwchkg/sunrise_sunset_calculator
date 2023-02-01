@@ -7,26 +7,45 @@ int floorDivide(int a, int b) {
   return a % b == 0 ? q : q - 1;
 }
 
-String shortTime(tz.TZDateTime? localTime) =>
-  localTime == null ? '-' : DateFormat.Hm().format(localTime);
+tz.TZDateTime roundToNearestMinute(tz.TZDateTime dateTime) {
+  bool isHalfMinuteOrMore = dateTime.second >= 30 ||
+      dateTime.second == 30 &&
+          (dateTime.millisecond > 0 || dateTime.microsecond > 0);
+
+  return tz.TZDateTime(
+    dateTime.location,
+    dateTime.year,
+    dateTime.month,
+    dateTime.day,
+    dateTime.hour,
+    dateTime.minute + (isHalfMinuteOrMore ? 1 : 0),
+  );
+}
+
+String shortTime(tz.TZDateTime? localTime) {
+  return localTime == null
+      ? '-'
+      : DateFormat.Hm().format(roundToNearestMinute(localTime));
+}
 
 String longTime(tz.TZDateTime? localTime, DateTime reference) {
   if (localTime == null) return 'nil';
 
   var location = localTime.location;
-  var localReference = tz.TZDateTime.from(reference, location);
+  reference = tz.TZDateTime.from(reference, location);
 
+  localTime = roundToNearestMinute(localTime);
   String timeString = DateFormat.Hm().format(localTime);
-  if (localTime.day == localReference.day) {
+  if (localTime.day == reference.day) {
     return timeString;
   }
 
   Duration interval =
-  tz.TZDateTime(location, localTime.year, localTime.month, localTime.day)
-      .difference(tz.TZDateTime(location, localReference.year,
-      localReference.month, localReference.day));
+      tz.TZDateTime(location, localTime.year, localTime.month, localTime.day)
+          .difference(tz.TZDateTime(
+              location, reference.year, reference.month, reference.day));
   int dayDifference =
-  floorDivide((interval + const Duration(hours: 12)).inHours, 24);
+      floorDivide((interval + const Duration(hours: 12)).inHours, 24);
   String sign = dayDifference > 0 ? '+' : '\u2212';
   return '$timeString ($sign${dayDifference.abs()} day)';
 }
