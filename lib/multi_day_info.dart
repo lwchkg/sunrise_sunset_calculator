@@ -5,7 +5,7 @@ import 'datetime_formatters.dart' show shortTime, shortDate;
 import 'solar_position.dart';
 
 /// Return a list of [count] day, which the first day is [from]. The time of the
-/// returned days is noon.
+/// returned days is noon in local time, with the same location as [from].
 List<tz.TZDateTime> daysFrom(tz.TZDateTime from, int count) {
   var utcDay = DateTime.utc(from.year, from.month, from.day);
   List<tz.TZDateTime> days = [];
@@ -15,6 +15,20 @@ List<tz.TZDateTime> daysFrom(tz.TZDateTime from, int count) {
     // UTC is not affected by DST, so adding by 1 day is safe.
     utcDay = utcDay.add(const Duration(days: 1));
   }
+  return days;
+}
+
+/// Return the days of [month]. The time of the returned days is noon in local
+/// time, with the same location as [month].
+List<tz.TZDateTime> daysOfMonth(tz.TZDateTime month) {
+  var utcDay = DateTime.utc(month.year, month.month, 1);
+  List<tz.TZDateTime> days = [];
+  do {
+    days.add(tz.TZDateTime(
+        month.location, utcDay.year, utcDay.month, utcDay.day, 12));
+    // UTC is not affected by DST, so adding by 1 day is safe.
+    utcDay = utcDay.add(const Duration(days: 1));
+  } while (utcDay.day != 1);
   return days;
 }
 
