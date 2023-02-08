@@ -3,6 +3,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/datetime_formatters.dart' show shortTime, shortDate;
 import '../core/solar_position.dart';
+import '../utils/layout.dart';
 
 /// Return a list of [count] day, which the first day is [from]. The time of the
 /// returned days is noon in local time, with the same location as [from].
@@ -32,9 +33,6 @@ List<tz.TZDateTime> daysOfMonth(tz.TZDateTime month) {
   return days;
 }
 
-const bgColor1 = Color(0x04000000);
-const bgColor2 = Color(0x08000000);
-
 class MultiDayInfo extends StatelessWidget {
   final double latitude;
   final double longitude;
@@ -42,6 +40,8 @@ class MultiDayInfo extends StatelessWidget {
   final List<tz.TZDateTime> days;
   final String title;
 
+  static const bgColor1 = Color(0x04000000);
+  static const bgColor2 = Color(0x08000000);
   static const rowHeight = 32.0;
   static const headerRowPadding = EdgeInsets.symmetric(vertical: 8);
 
@@ -136,7 +136,7 @@ class MultiDayInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headingStyle = Theme.of(context).textTheme.headlineSmall;
+    var headingStyle = getHeadingStyle(context);
     var borderSide =
         BorderSide(color: Theme.of(context).dividerColor, width: 1);
 
@@ -144,7 +144,7 @@ class MultiDayInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(title, style: headingStyle),
-        const SizedBox(height: 16),
+        verticalSpacingBox,
         Table(
           border: TableBorder(horizontalInside: borderSide),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,

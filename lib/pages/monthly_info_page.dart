@@ -3,9 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../utils/layout.dart';
 import '../widgets/multi_day_info.dart';
-
-const padding = 16.0;
 
 toLocalizedString(n) =>
     NumberFormat.decimalPatternDigits(decimalDigits: 5).format(n);
@@ -73,22 +72,20 @@ class MonthlyInfoPage extends StatelessWidget {
           title: Text(title),
         ),
         body: const Padding(
-          padding: EdgeInsets.all(padding),
+          padding: allEdgeInsets,
           child: Text('Error: parameter parsing failed.'),
         ),
       );
     }
 
-    final bodyTextStyle =
-        Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5) ??
-            const TextStyle(height: 1.5);
+    final bodyTextStyle = getBodyTextStyle(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(padding),
+        padding: allEdgeInsets,
         children: <Widget>[
           RichText(
             text: TextSpan(
@@ -132,7 +129,7 @@ class MonthlyInfoPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           MultiDayInfo(
             latitude: latitude,
             longitude: longitude,
@@ -140,9 +137,9 @@ class MonthlyInfoPage extends StatelessWidget {
             days: daysOfMonth(tz.TZDateTime(location, year, month)),
             title: 'Monthly sunrise and sunset times',
           ),
-          // Add home button if this page is loaded from a URL in the browser.
+          // Add home button if this page is a standalone web page.
           if (!context.canPop()) ...[
-            const SizedBox(height: padding),
+            verticalSpacingBox,
             TextButton(
               onPressed: () => context.go('/'),
               child: const Text('Home'),

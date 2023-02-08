@@ -10,14 +10,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../utils/layout.dart';
 import '../widgets/map_widget.dart';
 import '../widgets/multi_day_info.dart';
 import '../widgets/single_day_info.dart';
-
-const padding = 16.0;
-const horizontalSpacing = 32.0;
-
-const maxMapHeight = 600.0;
 
 toLocalizedString(n) =>
     NumberFormat.decimalPatternDigits(decimalDigits: 5).format(n);
@@ -70,25 +66,16 @@ Future<Position> _determinePosition() async {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-const initialLatitude = 37.3387;
-const initialLongitude = -121.8853;
-
 class _MyHomePageState extends State<MyHomePage> {
+  static const initialLatitude = 37.3387;
+  static const initialLongitude = -121.8853;
+
   double _latitude = initialLatitude;
   double _longitude = initialLongitude;
   tz.Location _location =
@@ -147,17 +134,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: padding),
+        padding: verticalEdgeInsets,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: OutlinedButton(
               onPressed: getOwnLocation,
               child: const Text('Use your own location'),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -191,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                const SizedBox(width: horizontalSpacing),
+                horizontalSpacingBox,
                 Flexible(
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.always,
@@ -225,9 +212,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: DropdownSearch<String>(
               items: _locations,
               dropdownDecoratorProps: DropDownDecoratorProps(
@@ -257,9 +244,9 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedItem: _location.name,
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: SingleDayInfo(
               latitude: _latitude,
               longitude: _longitude,
@@ -267,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
               now: _now,
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           SizedBox(
             height:
                 min(MediaQuery.of(context).size.width * 3 / 4, maxMapHeight),
@@ -277,9 +264,9 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: _mapController,
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: MultiDayInfo(
               latitude: _latitude,
               longitude: _longitude,
@@ -288,9 +275,9 @@ class _MyHomePageState extends State<MyHomePage> {
               title: 'Today and next week',
             ),
           ),
-          const SizedBox(height: padding),
+          verticalSpacingBox,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
+            padding: horizontalEdgeInsets,
             child: TextButton(
               onPressed: () {
                 context.push(Uri(path: '/monthly_info', queryParameters: {

@@ -3,8 +3,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/datetime_formatters.dart' show longTime;
 import '../core/solar_position.dart';
-
-const padding = 16.0;
+import '../utils/layout.dart';
 
 class SingleDayInfo extends StatelessWidget {
   final double latitude;
@@ -47,12 +46,8 @@ class SingleDayInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headingStyle = Theme.of(context).textTheme.headlineSmall;
-    var bodyTextStyle =
-        Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5) ??
-            const TextStyle(height: 1.5);
-
-    const numberOutputStyle = TextStyle(fontWeight: FontWeight.bold);
+    final headingStyle = getHeadingStyle(context);
+    final bodyTextStyle = getBodyTextStyle(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
