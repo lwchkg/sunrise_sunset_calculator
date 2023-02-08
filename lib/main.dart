@@ -5,7 +5,7 @@ import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'home.dart';
+import 'router.dart';
 
 void main() async {
   await findSystemLocale();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Sunrise and Sunset times',
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.padded,
         visualDensity: VisualDensity.standard,
       ),
-      home: const MyHomePage(title: 'Sunrise and Sunset times'),
+      routerConfig: router,
     );
   }
 }

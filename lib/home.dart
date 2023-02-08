@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart';
@@ -284,6 +285,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 location: _location,
                 days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
                 title: 'Today and next week'),
+          ),
+          const SizedBox(height: padding),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: padding),
+            child: TextButton(
+              onPressed: () {
+                context.push(Uri(path: '/monthly_info', queryParameters: {
+                  'latitude': _latitude.toString(),
+                  'longitude': _longitude.toString(),
+                  'location': _location.name,
+                  'year': _now.year.toString(),
+                  'month': _now.month.toString(),
+                }).toString());
+              },
+              child: const Text('More days...'),
+            ),
           ),
         ],
       ),

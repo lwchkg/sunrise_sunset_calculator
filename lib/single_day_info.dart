@@ -4,6 +4,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'datetime_formatters.dart' show longTime;
 import 'solar_position.dart';
 
+const padding = 16.0;
+
 class SingleDayInfo extends StatelessWidget {
   final double latitude;
   final double longitude;
