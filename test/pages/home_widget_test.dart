@@ -2,9 +2,9 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'test_util/mocks.dart';
+import '../test_util/mocks.dart';
 
-import 'package:sunrise_sunset_calculator/home.dart';
+import 'package:sunrise_sunset_calculator/pages/home.dart';
 
 String sunriseText() =>
     (find.textContaining('Sunrise:', findRichText: true).evaluate().first.widget

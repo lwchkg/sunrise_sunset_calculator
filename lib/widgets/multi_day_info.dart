@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'datetime_formatters.dart' show shortTime, shortDate;
-import 'solar_position.dart';
+import '../core/datetime_formatters.dart' show shortTime, shortDate;
+import '../core/solar_position.dart';
 
 /// Return a list of [count] day, which the first day is [from]. The time of the
 /// returned days is noon in local time, with the same location as [from].

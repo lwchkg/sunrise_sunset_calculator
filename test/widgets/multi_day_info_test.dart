@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:sunrise_sunset_calculator/multi_day_info.dart';
+import 'package:sunrise_sunset_calculator/widgets/multi_day_info.dart';
 
 void main() {
   test('MultiDayInfo utility function: daysFrom', () {

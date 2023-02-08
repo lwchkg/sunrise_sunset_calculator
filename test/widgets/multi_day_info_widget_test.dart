@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:sunrise_sunset_calculator/multi_day_info.dart';
+import 'package:sunrise_sunset_calculator/widgets/multi_day_info.dart';
 
-import 'test_util/expect_text_in_order.dart';
+import '../test_util/expect_text_in_order.dart';
 
 void main() {
   testWidgets('MultiDayInfo widget test', (WidgetTester tester) async {

@@ -3,7 +3,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'test_util/mocks.dart';
 
 import 'package:sunrise_sunset_calculator/main.dart';
-import 'package:sunrise_sunset_calculator/home.dart';
+import 'package:sunrise_sunset_calculator/pages/home.dart';
 
 void main() {
   setupMocks();

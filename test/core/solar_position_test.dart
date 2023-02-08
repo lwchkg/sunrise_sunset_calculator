@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:sunrise_sunset_calculator/solar_position.dart';
+import 'package:sunrise_sunset_calculator/core/solar_position.dart';
 
 void main() {
   test('Solar position UTC one iteration', () {

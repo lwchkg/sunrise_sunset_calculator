@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'multi_day_info.dart';
+import '../widgets/multi_day_info.dart';
 
 const padding = 16.0;
 

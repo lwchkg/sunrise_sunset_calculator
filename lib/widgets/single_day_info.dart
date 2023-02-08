@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'datetime_formatters.dart' show longTime;
-import 'solar_position.dart';
+import '../core/datetime_formatters.dart' show longTime;
+import '../core/solar_position.dart';
 
 const padding = 16.0;
 

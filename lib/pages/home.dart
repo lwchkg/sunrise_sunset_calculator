@@ -10,9 +10,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'map_widget.dart';
-import 'multi_day_info.dart';
-import 'single_day_info.dart';
+import '../widgets/map_widget.dart';
+import '../widgets/multi_day_info.dart';
+import '../widgets/single_day_info.dart';
 
 const padding = 16.0;
 const horizontalSpacing = 32.0;
