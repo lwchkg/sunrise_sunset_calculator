@@ -10,13 +10,6 @@ const civilTwilight = -6.0;
 const nauticalTwilight = -12.0;
 const astronomicalTwilight = -18.0;
 
-/// Gets the day in [dateTime] in the given [location]. The time of the day in
-/// the return value is UTC midnight.
-DateTime getLocalDateInUtc(DateTime dateTime, tz.Location location) {
-  tz.TZDateTime localTime = tz.TZDateTime.from(dateTime, location);
-  return DateTime.utc(localTime.year, localTime.month, localTime.day);
-}
-
 // Degree and radian conversions.
 double radians(double degrees) => degrees / 180 * pi;
 double degrees(double radians) => radians / pi * 180;
