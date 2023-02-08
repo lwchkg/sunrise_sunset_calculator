@@ -65,13 +65,14 @@ class MultiDayInfo extends StatelessWidget {
         civilTwilight, SolarPosition.afterSolarNoon));
   }
 
-  const MultiDayInfo(
-      {required this.latitude,
-      required this.longitude,
-      required this.location,
-      required this.days,
-      this.title = 'Sunrise and Sunset Times',
-      super.key});
+  const MultiDayInfo({
+    required this.latitude,
+    required this.longitude,
+    required this.location,
+    required this.days,
+    this.title = 'Sunrise and Sunset Times',
+    super.key,
+  });
 
   TableRow tableHeader() {
     const labels = [

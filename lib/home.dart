@@ -261,10 +261,11 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: padding),
             child: SingleDayInfo(
-                latitude: _latitude,
-                longitude: _longitude,
-                location: _location,
-                now: _now),
+              latitude: _latitude,
+              longitude: _longitude,
+              location: _location,
+              now: _now,
+            ),
           ),
           const SizedBox(height: padding),
           SizedBox(
@@ -280,11 +281,12 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: padding),
             child: MultiDayInfo(
-                latitude: _latitude,
-                longitude: _longitude,
-                location: _location,
-                days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
-                title: 'Today and next week'),
+              latitude: _latitude,
+              longitude: _longitude,
+              location: _location,
+              days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
+              title: 'Today and next week',
+            ),
           ),
           const SizedBox(height: padding),
           Padding(

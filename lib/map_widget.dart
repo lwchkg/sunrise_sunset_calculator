@@ -11,10 +11,11 @@ const _openStreetMapUrlTemplate =
     'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const _appPackageName = 'com.example.app';
 
-FlutterMap flutterMap(
-    {required double latitude,
-    required double longitude,
-    required MapController controller}) {
+FlutterMap flutterMap({
+  required double latitude,
+  required double longitude,
+  required MapController controller,
+}) {
   return FlutterMap(
     mapController: controller,
     options: MapOptions(
