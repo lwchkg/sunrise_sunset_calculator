@@ -21,8 +21,12 @@ bool isLongitude(String s) {
   }
 }
 
-String formatLatitude(double latitude) =>
-    '${toLocalizedString(latitude.abs())}° ${latitude > 0 ? 'N' : 'S'}';
+String formatLatitude(double latitude) {
+  if (latitude == 0) return '0°';
+  return '${toLocalizedString(latitude.abs())}° ${latitude > 0 ? 'N' : 'S'}';
+}
 
-String formatLongitude(double longitude) =>
-    '${toLocalizedString(longitude.abs())}° ${longitude > 0 ? 'E' : 'W'}';
+String formatLongitude(double longitude) {
+  if (longitude == 0) return '0°';
+  return '${toLocalizedString(longitude.abs())}° ${longitude > 0 ? 'E' : 'W'}';
+}

@@ -1,16 +1,14 @@
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-int floorDivide(int a, int b) {
+int _floorDivide(int a, int b) {
   if (a >= 0) return a ~/ b;
   int q = a ~/ b;
   return a % b == 0 ? q : q - 1;
 }
 
 tz.TZDateTime roundToNearestMinute(tz.TZDateTime dateTime) {
-  bool isHalfMinuteOrMore = dateTime.second >= 30 ||
-      dateTime.second == 30 &&
-          (dateTime.millisecond > 0 || dateTime.microsecond > 0);
+  bool isHalfMinuteOrMore = dateTime.second >= 30;
 
   return tz.TZDateTime(
     dateTime.location,
@@ -45,7 +43,8 @@ String longTime(tz.TZDateTime? localTime, DateTime reference) {
           .difference(tz.TZDateTime(
               location, reference.year, reference.month, reference.day));
   int dayDifference =
-      floorDivide((interval + const Duration(hours: 12)).inHours, 24);
+      _floorDivide((interval + const Duration(hours: 12)).inHours, 24);
+  // \u2212 is the minus sign.
   String sign = dayDifference > 0 ? '+' : '\u2212';
   return '$timeString ($sign${dayDifference.abs()} day)';
 }
