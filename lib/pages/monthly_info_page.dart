@@ -3,11 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../core/number_formatters.dart' show formatLatitude, formatLongitude;
 import '../utils/layout.dart';
 import '../widgets/multi_day_info.dart';
-
-toLocalizedString(n) =>
-    NumberFormat.decimalPatternDigits(decimalDigits: 5).format(n);
 
 const numberOutputStyle = TextStyle(fontWeight: FontWeight.bold);
 
@@ -93,7 +91,7 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: toLocalizedString(latitude),
+                    text: formatLatitude(latitude),
                     style: numberOutputStyle),
               ],
             ),
@@ -104,7 +102,7 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: toLocalizedString(longitude),
+                    text: formatLongitude(longitude),
                     style: numberOutputStyle),
               ],
             ),

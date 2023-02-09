@@ -10,31 +10,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../core/number_formatters.dart';
 import '../utils/layout.dart';
 import '../widgets/map_widget.dart';
 import '../widgets/multi_day_info.dart';
 import '../widgets/single_day_info.dart';
-
-toLocalizedString(n) =>
-    NumberFormat.decimalPatternDigits(decimalDigits: 5).format(n);
-
-bool isLatitude(String s) {
-  try {
-    double latitude = NumberFormat.decimalPattern().parse(s).toDouble();
-    return latitude >= -90 && latitude <= 90;
-  } on FormatException {
-    return false;
-  }
-}
-
-bool isLongitude(String s) {
-  try {
-    double longitude = NumberFormat.decimalPattern().parse(s).toDouble();
-    return longitude >= -180 && longitude <= 180;
-  } on FormatException {
-    return false;
-  }
-}
 
 Future<Position> _determinePosition() async {
   bool serviceEnabled;
