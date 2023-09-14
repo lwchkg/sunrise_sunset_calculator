@@ -33,11 +33,13 @@ class MonthlyInfoPage extends StatelessWidget {
   static MonthlyInfoPage fromState(
       {Key? key, required String title, required GoRouterState state}) {
     try {
-      final double latitude = double.parse(state.queryParams['latitude']!);
-      final double longitude = double.parse(state.queryParams['longitude']!);
-      final location = tz.getLocation(state.queryParams['location']!);
-      final int year = int.parse(state.queryParams['year']!);
-      final int month = int.parse(state.queryParams['month']!);
+      final double latitude =
+          double.parse(state.uri.queryParameters['latitude']!);
+      final double longitude =
+          double.parse(state.uri.queryParameters['longitude']!);
+      final location = tz.getLocation(state.uri.queryParameters['location']!);
+      final int year = int.parse(state.uri.queryParameters['year']!);
+      final int month = int.parse(state.uri.queryParameters['month']!);
       return MonthlyInfoPage(
         key: key,
         title: title,
@@ -91,8 +93,7 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: formatLatitude(latitude),
-                    style: numberOutputStyle),
+                    text: formatLatitude(latitude), style: numberOutputStyle),
               ],
             ),
           ),
@@ -102,8 +103,7 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: formatLongitude(longitude),
-                    style: numberOutputStyle),
+                    text: formatLongitude(longitude), style: numberOutputStyle),
               ],
             ),
           ),

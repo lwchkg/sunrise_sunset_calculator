@@ -6,9 +6,9 @@ void main() {
   testWidgets('expectTextInOrder', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(
-      Directionality(
+      const Directionality(
         textDirection: TextDirection.ltr,
-        child: Row(children: const [Text('123'), Text('123'), Text('456')]),
+        child: Row(children: [Text('123'), Text('123'), Text('456')]),
       ),
     );
 
