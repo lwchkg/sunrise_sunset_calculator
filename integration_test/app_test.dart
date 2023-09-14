@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+// ignore: unused_import
 import 'package:integration_test/integration_test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 

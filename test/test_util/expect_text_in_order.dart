@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 void expectTextInOrder(List<String> text, {skipOffstage = false}) {
   TestAsyncUtils.guardSync();
   final elements = collectAllElementsFrom(
-      WidgetsBinding.instance.renderViewElement!,
+      WidgetsBinding.instance.rootElement!,
       skipOffstage: skipOffstage);
 
   var iter = text.iterator;
