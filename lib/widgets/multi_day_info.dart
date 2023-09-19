@@ -3,7 +3,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/datetime_formatters.dart' show shortTime, shortDate;
 import '../core/solar_position.dart';
-import '../utils/layout.dart';
 
 /// Return a list of [count] day, which the first day is [from]. The time of the
 /// returned days is noon in local time, with the same location as [from].
@@ -136,15 +135,12 @@ class MultiDayInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headingStyle = getHeadingStyle(context);
-    var borderSide =
+    final borderSide =
         BorderSide(color: Theme.of(context).dividerColor, width: 1);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title, style: headingStyle),
-        verticalSpacingBox,
         Table(
           border: TableBorder(horizontalInside: borderSide),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,

@@ -9,7 +9,7 @@ import '../widgets/multi_day_info.dart';
 
 const numberOutputStyle = TextStyle(fontWeight: FontWeight.bold);
 
-class MonthlyInfoPage extends StatelessWidget {
+class MonthlyInfoPage extends StatefulWidget {
   final String title;
 
   final double latitude;
@@ -65,11 +65,26 @@ class MonthlyInfoPage extends StatelessWidget {
   }
 
   @override
+  State<MonthlyInfoPage> createState() => _MonthlyInfoPageState();
+}
+
+class _MonthlyInfoPageState extends State<MonthlyInfoPage> {
+  int year = 1970;
+  int month = 1;
+
+  @override
+  void initState() {
+    year = widget.year;
+    month = widget.month;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (isError) {
+    if (widget.isError) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(widget.title),
         ),
         body: const Padding(
           padding: allEdgeInsets,
@@ -78,11 +93,13 @@ class MonthlyInfoPage extends StatelessWidget {
       );
     }
 
+    final headingStyle = getHeadingStyle(context);
+    final headingSizeStyle = TextStyle(fontSize: headingStyle.fontSize);
     final bodyTextStyle = getBodyTextStyle(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
       ),
       body: ListView(
         padding: allEdgeInsets,
@@ -93,7 +110,8 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: formatLatitude(latitude), style: numberOutputStyle),
+                    text: formatLatitude(widget.latitude),
+                    style: numberOutputStyle),
               ],
             ),
           ),
@@ -103,7 +121,8 @@ class MonthlyInfoPage extends StatelessWidget {
               style: bodyTextStyle,
               children: [
                 TextSpan(
-                    text: formatLongitude(longitude), style: numberOutputStyle),
+                    text: formatLongitude(widget.longitude),
+                    style: numberOutputStyle),
               ],
             ),
           ),
@@ -112,28 +131,51 @@ class MonthlyInfoPage extends StatelessWidget {
               text: 'Location: ',
               style: bodyTextStyle,
               children: [
-                TextSpan(text: location.name, style: numberOutputStyle),
-              ],
-            ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: 'Month: ',
-              style: bodyTextStyle,
-              children: [
-                TextSpan(
-                    text: DateFormat.yMMM().format(DateTime.utc(year, month)),
-                    style: numberOutputStyle),
+                TextSpan(text: widget.location.name, style: numberOutputStyle),
               ],
             ),
           ),
           verticalSpacingBox,
+          Row(
+            children: [
+              TextButton(
+                  key: const ValueKey('prevMonth'),
+                  onPressed: () {
+                    setState(() {
+                      month--;
+                      if (month <= 0) {
+                        month += 12;
+                        year -= 1;
+                      }
+                    });
+                  },
+                  child: Text('<', style: headingSizeStyle)),
+              Expanded(
+                  child: Center(
+                      child: Text(
+                          DateFormat.yMMM().format(DateTime.utc(year, month)),
+                          key: const ValueKey('month'),
+                          style: headingStyle))),
+              TextButton(
+                  key: const ValueKey('nextMonth'),
+                  onPressed: () {
+                    setState(() {
+                      month++;
+                      if (month > 12) {
+                        month -= 12;
+                        year++;
+                      }
+                    });
+                  },
+                  child: Text('>', style: headingSizeStyle)),
+            ],
+          ),
+          verticalSpacingBox,
           MultiDayInfo(
-            latitude: latitude,
-            longitude: longitude,
-            location: location,
-            days: daysOfMonth(tz.TZDateTime(location, year, month)),
-            title: 'Monthly sunrise and sunset times',
+            latitude: widget.latitude,
+            longitude: widget.longitude,
+            location: widget.location,
+            days: daysOfMonth(tz.TZDateTime(widget.location, year, month)),
           ),
           // Add home button if this page is a standalone web page.
           if (!context.canPop()) ...[

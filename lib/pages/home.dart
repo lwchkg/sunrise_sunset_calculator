@@ -107,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _now = DateTime.now();
 
+    final headingStyle = getHeadingStyle(context);
     const textBoxContentPadding = EdgeInsets.fromLTRB(0, 12, 0, 4);
 
     return Scaffold(
@@ -247,12 +248,16 @@ class _MyHomePageState extends State<MyHomePage> {
           verticalSpacingBox,
           Padding(
             padding: horizontalEdgeInsets,
+            child: Text('Today and next week', style: headingStyle),
+          ),
+          verticalSpacingBox,
+          Padding(
+            padding: horizontalEdgeInsets,
             child: MultiDayInfo(
               latitude: _latitude,
               longitude: _longitude,
               location: _location,
               days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
-              title: 'Today and next week',
             ),
           ),
           verticalSpacingBox,

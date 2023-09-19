@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void expectTextInOrder(List<String> text, {skipOffstage = false}) {
+void expectTextInOrder(Iterable<String> text, {skipOffstage = false}) {
   TestAsyncUtils.guardSync();
   final elements = collectAllElementsFrom(
       WidgetsBinding.instance.rootElement!,

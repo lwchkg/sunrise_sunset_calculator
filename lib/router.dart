@@ -12,8 +12,8 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/monthly_info',
-      builder: (context, state) =>
-      MonthlyInfoPage.fromState(title: 'Sunrise and Sunset times', state: state),
+      builder: (context, state) => MonthlyInfoPage.fromState(
+          title: 'Sunrise and Sunset times', state: state),
     ),
   ],
 );
