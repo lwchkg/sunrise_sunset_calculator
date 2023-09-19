@@ -4,7 +4,7 @@ const padding = 16.0;
 const horizontalSpacing = 32.0;
 const verticalSpacing = 16.0;
 
-const maxMapHeight = 600.0;
+const maxMapHeight = 400.0;
 
 const horizontalEdgeInsets = EdgeInsets.symmetric(horizontal: padding);
 const verticalEdgeInsets = EdgeInsets.symmetric(vertical: padding);
