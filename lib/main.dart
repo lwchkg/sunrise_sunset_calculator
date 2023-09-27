@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Sunrise and Sunset times',
+      title: 'Sunrise and Sunset Times',
       theme: ThemeData(
         primarySwatch: Colors.purple,
         // Override platform specific defaults`.
