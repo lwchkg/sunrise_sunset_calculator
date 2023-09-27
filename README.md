@@ -1,16 +1,37 @@
-# sunrise_sunset_calculator
+# Sunrise and Sunset Times App
 
-A new Flutter project.
+Sunrise and sunset time calculator.
+[Open the app](https://lwchkg.github.io/sunrise_sunset_calculator/) in your
+browser.
 
-## Getting Started
+## How to use
 
-This project is a starting point for a Flutter application.
+1. [Open the app](https://lwchkg.github.io/sunrise_sunset_calculator/).
+2. Allow the use of your location.
+3. **If you care more about sunlight than actual sunrise and sunset (which I
+   do), check the civil twilight times.**
+4. Scroll down to view the sunrise and sunset times for the next 7 days.
+5. For other days click “More days...”.
 
-A few resources to get you started if this is your first Flutter project:
+## Accuracy of sunrise and sunset times
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The algorithm in
+[NOAA Sunrise/Sunset and Solar Position Calculators](https://gml.noaa.gov/grad/solcalc/calcdetails.html)
+is used in this app. According to its web site, “sunrise and sunset results are
+theoretically accurate to within a minute for locations between +/- 72°
+latitude, and within 10 minutes outside of those latitudes. However, due to
+variations in atmospheric composition, temperature, pressure and conditions,
+observed values may vary from calculations.”
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+![Home screen](readme_assets/screenshot1.png)
+![Monthly info](readme_assets/screenshot2.png)
+
+## Similar calculators
+
+[US Naval Observatory](https://aa.usno.navy.mil/data/RS_OneDay) - might be more
+accurate than this app, especially if you live in the arctic circle.
+
+[Stonekick Sun Position App](https://stonekick.com/sunposition.html) - more
+information, but only the information of the current day is free.
