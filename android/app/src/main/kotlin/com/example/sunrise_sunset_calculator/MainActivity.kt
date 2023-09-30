@@ -1,4 +1,4 @@
-package com.example.sunrise_sunset_calculator
+package com.lwchkg.sunrise_sunset_calculator
 
 import io.flutter.embedding.android.FlutterActivity
 
