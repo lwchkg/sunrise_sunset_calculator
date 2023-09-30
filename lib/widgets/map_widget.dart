@@ -9,7 +9,7 @@ const _openStreetMapMaxZoomLevel = 18.0;
 const _openStreetMapAttributionMessage = 'Map powered by OpenStreetMap';
 const _openStreetMapUrlTemplate =
     'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const _appPackageName = 'com.example.app';
+const _appPackageName = 'com.lwchkg.app';
 
 FlutterMap flutterMap({
   required double latitude,
