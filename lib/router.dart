@@ -8,12 +8,12 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) =>
-          const MyHomePage(title: 'Sunrise and Sunset times'),
+          const MyHomePage(title: 'Sunrise and Sunset Times'),
     ),
     GoRoute(
       path: '/monthly_info',
       builder: (context, state) => MonthlyInfoPage.fromState(
-          title: 'Sunrise and Sunset times', state: state),
+          title: 'Sunrise and Sunset Times', state: state),
     ),
   ],
 );
