@@ -5,6 +5,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/number_formatters.dart' show formatLatitude, formatLongitude;
 import '../utils/layout.dart';
+import '../widgets/app_bar_with_button.dart';
 import '../widgets/multi_day_info.dart';
 
 const numberOutputStyle = TextStyle(fontWeight: FontWeight.bold);
@@ -83,9 +84,7 @@ class _MonthlyInfoPageState extends State<MonthlyInfoPage> {
   Widget build(BuildContext context) {
     if (widget.isError) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
+        appBar: AppBarWithButton(title: Text(widget.title)),
         body: const Padding(
           padding: allEdgeInsets,
           child: Text('Error: parameter parsing failed.'),
@@ -98,9 +97,7 @@ class _MonthlyInfoPageState extends State<MonthlyInfoPage> {
     final bodyTextStyle = getBodyTextStyle(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBarWithButton(title: Text(widget.title)),
       body: ListView(
         padding: allEdgeInsets,
         children: <Widget>[

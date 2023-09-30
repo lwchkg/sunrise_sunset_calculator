@@ -12,6 +12,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/number_formatters.dart';
 import '../utils/layout.dart';
+import '../widgets/app_bar_with_button.dart';
 import '../widgets/map_widget.dart';
 import '../widgets/multi_day_info.dart';
 import '../widgets/single_day_info.dart';
@@ -111,9 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const textBoxContentPadding = EdgeInsets.fromLTRB(0, 12, 0, 4);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBarWithButton(title: Text(widget.title)),
       body: ListView(
         padding: verticalEdgeInsets,
         children: <Widget>[
