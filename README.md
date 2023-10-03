@@ -25,8 +25,8 @@ observed values may vary from calculations.”
 
 ## Screenshots
 
-![Home screen](readme_assets/screenshot1.png)
-![Monthly info](readme_assets/screenshot2.png)
+![Home screen](readme_assets/screenshot1.webp)
+![Monthly info](readme_assets/screenshot2.webp)
 
 ## Similar calculators
 
