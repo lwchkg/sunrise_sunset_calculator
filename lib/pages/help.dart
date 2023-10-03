@@ -5,6 +5,8 @@ import '../utils/layout.dart';
 
 const String helpPageTitle = 'Help - Sunrise and Sunset Times';
 const String userManual = '''
+Sunrise and Sunset Times - © Wing Chung Leung 2023
+
 This app displays the sunrise and sunset times, and also the civil twilight times.
 
 The sunrise and sunset times in the app are calculated with an algorithm. The actual sunrise and sunset times depends on actual atmospheric conditions, which cannot be predicted by calculations. Therefore, the actual sunrise and sunset times can differ from the calculated times by a few minutes.
