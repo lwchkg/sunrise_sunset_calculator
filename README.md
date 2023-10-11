@@ -2,9 +2,9 @@
 
 Sunrise and sunset time calculator.
 
-<a href='https://play.google.com/store/apps/details?id=com.lwchkg.sunrise_sunset_calculator'><img alt='Get it on Google Play' src='readme_assets/google-play-badge.png' width="188"></a>
+<a href='https://play.google.com/store/apps/details?id=com.lwchkg.sunrise_sunset_calculator'><img alt='Get it on Google Play' src='readme_assets/google-play-badge.png' width='188'></a>
 &nbsp;
-<a href='https://lwchkg.github.io/sunrise_sunset_calculator/'><img alt='Open in any browser' src='readme_assets/open_in_any_browser.webp' width="188"></a>
+<a href='https://lwchkg.github.io/sunrise_sunset_calculator/'><img alt='Open in any browser' src='readme_assets/open_in_any_browser.webp' width='188'></a>
 
 ## How to use
 
