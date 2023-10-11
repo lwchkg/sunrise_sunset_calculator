@@ -1,17 +1,24 @@
 # Sunrise and Sunset Times App
 
 Sunrise and sunset time calculator.
-[Open the app](https://lwchkg.github.io/sunrise_sunset_calculator/) in your
-browser.
+
+<a href='https://play.google.com/store/apps/details?id=com.lwchkg.sunrise_sunset_calculator'><img alt='Get it on Google Play' src='readme_assets/google-play-badge.png' width="188"></a>
+&nbsp;
+<a href='https://lwchkg.github.io/sunrise_sunset_calculator/'><img alt='Open in any browser' src='readme_assets/open_in_any_browser.webp' width="188"></a>
 
 ## How to use
 
-1. [Open the app](https://lwchkg.github.io/sunrise_sunset_calculator/).
+1. Open the app (choose between
+   [Google Play Store](https://play.google.com/store/apps/details?id=com.lwchkg.sunrise_sunset_calculator)
+   or [web page](https://lwchkg.github.io/sunrise_sunset_calculator/)).
 2. Allow the use of your location.
 3. **If you care more about sunlight than actual sunrise and sunset (which I
    do), check the civil twilight times.**
 4. Scroll down to view the sunrise and sunset times for the next 7 days.
 5. For other days click “More days...”.
+
+Note: The web page is installable.
+See [Aureate: How to install PWA to your device?](https://aureatelabs.com/blog/install-pwa-to-device/) for details.
 
 ## Accuracy of sunrise and sunset times
 
