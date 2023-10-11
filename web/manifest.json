@@ -1,11 +1,11 @@
 {
-    "name": "sunrise_sunset_calculator",
+    "name": "Sunrise and Sunset Times",
     "short_name": "sunrise_sunset_calculator",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
-    "description": "A new Flutter project.",
+    "description": "Calculate sunrise and sunset times of where you are.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
