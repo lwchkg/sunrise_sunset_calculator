@@ -22,8 +22,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Sunrise and Sunset Times',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        // Override platform specific defaults`.
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+            brightness: View.of(context).platformDispatcher.platformBrightness),
+        // Override platform specific defaults.
         materialTapTargetSize: MaterialTapTargetSize.padded,
         visualDensity: VisualDensity.standard,
       ),

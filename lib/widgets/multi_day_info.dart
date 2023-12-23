@@ -39,8 +39,6 @@ class MultiDayInfo extends StatelessWidget {
   final List<tz.TZDateTime> days;
   final String title;
 
-  static const bgColor1 = Color(0x04000000);
-  static const bgColor2 = Color(0x08000000);
   static const rowHeight = 32.0;
   static const headerRowPadding = EdgeInsets.symmetric(vertical: 8);
 
@@ -73,7 +71,7 @@ class MultiDayInfo extends StatelessWidget {
     super.key,
   });
 
-  TableRow tableHeader() {
+  TableRow tableHeader(Color bgColor1, Color bgColor2) {
     const labels = [
       'Civil Twilight Start',
       'Sunrise',
@@ -81,7 +79,7 @@ class MultiDayInfo extends StatelessWidget {
       'Civil Twilight End'
     ];
     return TableRow(
-      decoration: const BoxDecoration(color: bgColor1),
+      decoration: BoxDecoration(color: bgColor1),
       children: <Widget>[
         // Hack that works only if the cell is not the tallest, which may not be
         // true for all languages.
@@ -114,7 +112,7 @@ class MultiDayInfo extends StatelessWidget {
     );
   }
 
-  TableRow tableRow(tz.TZDateTime dateTime) {
+  TableRow tableRow(tz.TZDateTime dateTime, Color bgColor2) {
     final funcList = [civilTwilightStart, sunrise, sunset, civilTwilightEnd];
     return TableRow(children: <Widget>[
       Container(
@@ -135,6 +133,9 @@ class MultiDayInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor1 = Theme.of(context).colorScheme.primary.withAlpha(8);
+    final bgColor2 = Theme.of(context).colorScheme.primary.withAlpha(16);
+
     final borderSide =
         BorderSide(color: Theme.of(context).dividerColor, width: 1);
 
@@ -144,7 +145,12 @@ class MultiDayInfo extends StatelessWidget {
         Table(
           border: TableBorder(horizontalInside: borderSide),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: [tableHeader(), ...days.map(tableRow).toList()],
+          children: [
+            tableHeader(bgColor1, bgColor2),
+            ...days
+                .map((tz.TZDateTime dateTime) => tableRow(dateTime, bgColor2))
+                .toList()
+          ],
         ),
       ],
     );
