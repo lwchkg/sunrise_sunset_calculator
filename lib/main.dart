@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart'
@@ -14,8 +15,29 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key, this.title = ""});
+
+  final String title;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _platformDispatcher = SchedulerBinding.instance.platformDispatcher;
+  var _brightness =
+      SchedulerBinding.instance.platformDispatcher.platformBrightness;
+
+  @override
+  void initState() {
+    _platformDispatcher.onPlatformBrightnessChanged = () {
+      setState(() {
+        _brightness = _platformDispatcher.platformBrightness;
+      });
+    };
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +45,7 @@ class MyApp extends StatelessWidget {
       title: 'Sunrise and Sunset Times',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.purple,
-            brightness: View.of(context).platformDispatcher.platformBrightness),
+            seedColor: Colors.purple, brightness: _brightness),
         // Override platform specific defaults.
         materialTapTargetSize: MaterialTapTargetSize.padded,
         visualDensity: VisualDensity.standard,
