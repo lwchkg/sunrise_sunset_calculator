@@ -7,6 +7,7 @@ import 'package:intl/intl_standalone.dart'
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'router.dart';
+import '/utils/settings.dart';
 
 void main() async {
   await findSystemLocale();
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
         _brightness = _platformDispatcher.platformBrightness;
       });
     };
+    Settings.get().addBrightnessListener(brightnessSettingsChanges);
     super.initState();
   }
 
@@ -53,5 +55,18 @@ class _MyAppState extends State<MyApp> {
       routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
+  }
+
+  void brightnessSettingsChanges(String brightness) {
+    final newBrightness = brightness == "dark"
+        ? Brightness.dark
+        : brightness == "light"
+            ? Brightness.light
+            : _platformDispatcher.platformBrightness;
+    if (_brightness != newBrightness) {
+      setState(() {
+        _brightness = newBrightness;
+      });
+    }
   }
 }
