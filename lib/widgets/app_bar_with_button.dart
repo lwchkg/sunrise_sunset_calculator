@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 
+import '/utils/brightness.dart';
 import '/utils/settings.dart';
-
-Brightness getCurrentBrightness() {
-  String brightness = Settings.get().getBrightness();
-  if (brightness == "light") return Brightness.light;
-  if (brightness == "dark") return Brightness.dark;
-  return SchedulerBinding.instance.platformDispatcher.platformBrightness;
-}
 
 void cycleBrightness() {
   var currentBrightness = getCurrentBrightness();
@@ -20,11 +14,11 @@ void cycleBrightness() {
 
   if (nextBrightness ==
       SchedulerBinding.instance.platformDispatcher.platformBrightness) {
-    Settings.get().setBrightness("system");
+    Settings.getInstance().setBrightness("system");
   } else if (nextBrightness == Brightness.light) {
-    Settings.get().setBrightness("light");
+    Settings.getInstance().setBrightness("light");
   } else {
-    Settings.get().setBrightness("dark");
+    Settings.getInstance().setBrightness("dark");
   }
 }
 
