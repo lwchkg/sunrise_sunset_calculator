@@ -19,7 +19,6 @@ class Settings {
 
   static Future<void> init() async {
     Settings instance = getInstance();
-    WidgetsFlutterBinding.ensureInitialized(); // Required by SharedPreferences.
     instance._store = await SharedPreferences.getInstance();
     instance
         .setBrightness(instance._store.getString(prefBrightness) ?? 'system');
