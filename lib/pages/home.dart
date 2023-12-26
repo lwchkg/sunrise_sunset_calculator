@@ -10,12 +10,13 @@ import 'package:latlong2/latlong.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import '../core/number_formatters.dart';
-import '../utils/layout.dart';
-import '../widgets/app_bar_with_button.dart';
-import '../widgets/map_widget.dart';
-import '../widgets/multi_day_info.dart';
-import '../widgets/single_day_info.dart';
+import '/core/number_formatters.dart';
+import '/utils/brightness.dart';
+import '/utils/layout.dart';
+import '/widgets/app_bar_with_button.dart';
+import '/widgets/map_widget.dart';
+import '/widgets/multi_day_info.dart';
+import '/widgets/single_day_info.dart';
 
 Future<Position> _determinePosition() async {
   bool serviceEnabled;
@@ -56,6 +57,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   static const initialLatitude = 37.3387;
   static const initialLongitude = -121.8853;
+
+  // Composite of invert picture, hue +180 degs, brightness * 1.25, finally
+  // contrast to 90%.
+  static const darkModeFilter = ColorFilter.matrix([
+    0.5878708260105449,
+    -1.464556239015817,
+    -0.14747978910369078,
+    0.0,
+    284.28760984182776,
+    -0.43629437609841826,
+    -0.44039103690685405,
+    -0.14747978910369064,
+    0.0,
+    284.2876098418277,
+    -0.43629437609841815,
+    -1.464556239015817,
+    0.8766854130052725,
+    0.0,
+    284.2876098418277,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+  ]);
 
   double _latitude = initialLatitude;
   double _longitude = initialLongitude;
@@ -110,6 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final headingStyle = getHeadingStyle(context);
     const textBoxContentPadding = EdgeInsets.fromLTRB(0, 12, 0, 4);
+    final brightness = getCurrentBrightness();
 
     return Scaffold(
       appBar: AppBarWithButton(title: Text(widget.title)),
@@ -238,11 +265,20 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height:
                 min(MediaQuery.of(context).size.width * 3 / 4, maxMapHeight),
-            child: flutterMap(
-              latitude: _latitude,
-              longitude: _longitude,
-              controller: _mapController,
-            ),
+            child: brightness == Brightness.light
+                ? flutterMap(
+                    latitude: _latitude,
+                    longitude: _longitude,
+                    controller: _mapController,
+                  )
+                : ColorFiltered(
+                    colorFilter: darkModeFilter,
+                    child: flutterMap(
+                      latitude: _latitude,
+                      longitude: _longitude,
+                      controller: _mapController,
+                    ),
+                  ),
           ),
           verticalSpacingBox,
           Padding(
