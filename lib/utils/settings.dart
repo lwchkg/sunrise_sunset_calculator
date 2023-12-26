@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef BrightnessListener = Function(String);
 
-const String prefBrightness = 'brightness';
-
 class Settings {
+  @visibleForTesting
+  static const String prefBrightness = 'brightness';
+
   static final Settings _self = Settings._();
   late SharedPreferences _store;
 
