@@ -11,6 +11,26 @@ const _openStreetMapUrlTemplate =
     'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const _appPackageName = 'com.lwchkg.app';
 
+class AttributionWidget extends StatelessWidget {
+  const AttributionWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Align(
+        alignment: Alignment.bottomRight,
+        child: ColoredBox(
+            color: Color(0xc0ffffff),
+            child: Padding(
+              padding: _attributionPadding,
+              child: Text(_openStreetMapAttributionMessage,
+                  // Do not use theme color because in dark mode it is under a
+                  // color filter, so the default white in dark mode becomes
+                  // black!
+                  style: TextStyle(color: Color(0xc0000000))),
+            )));
+  }
+}
+
 FlutterMap flutterMap({
   required double latitude,
   required double longitude,
@@ -19,39 +39,29 @@ FlutterMap flutterMap({
   return FlutterMap(
     mapController: controller,
     options: MapOptions(
-      center: LatLng(latitude, longitude),
-      // Disable scroll view and drag to allow scrolling of the page.
-      enableScrollWheel: false,
-      interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.drag,
+      initialCenter: LatLng(latitude, longitude),
+      // Disable scroll wheel and drag to make the underlying page scrollable.
+      interactionOptions: const InteractionOptions(
+          flags: InteractiveFlag.all & ~InteractiveFlag.drag,
+          enableScrollWheel: false),
       maxZoom: _openStreetMapMaxZoomLevel,
-      zoom: _zoomLevel,
+      initialZoom: _zoomLevel,
     ),
-    nonRotatedChildren: const [
-      Align(
-        alignment: Alignment.bottomRight,
-        child: ColoredBox(
-          color: Color(0xc0ffffff),
-          child: Padding(
-            padding: _attributionPadding,
-            child: Text(_openStreetMapAttributionMessage),
-          ),
-        ),
-      ),
-    ],
     children: [
       TileLayer(
         urlTemplate: _openStreetMapUrlTemplate,
         userAgentPackageName: _appPackageName,
       ),
+      const AttributionWidget(),
       MarkerLayer(
         markers: [
           Marker(
             point: LatLng(latitude, longitude),
             width: 36.0,
             height: 36.0,
-            builder: (context) =>
+            child:
                 const Icon(Icons.place_outlined, color: Colors.red, size: 36.0),
-            anchorPos: AnchorPos.align(AnchorAlign.top),
+            alignment: Alignment.topCenter,
           ),
         ],
       ),
