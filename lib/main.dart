@@ -40,11 +40,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme =
+        ColorScheme.fromSeed(seedColor: Colors.purple, brightness: _brightness);
+
     return MaterialApp.router(
       title: 'Sunrise and Sunset Times',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.purple, brightness: _brightness),
+        appBarTheme: AppBarTheme(
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary),
+        colorScheme: colorScheme,
         // Override platform specific defaults.
         materialTapTargetSize: MaterialTapTargetSize.padded,
         visualDensity: VisualDensity.standard,
