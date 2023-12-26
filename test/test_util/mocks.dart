@@ -8,6 +8,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunrise_sunset_calculator/utils/settings.dart';
 
 class MockHttpClientResponse extends Mock implements HttpClientResponse {
   final _stream = readFile();
@@ -61,5 +63,7 @@ class MockHttpOverrides extends HttpOverrides {
 void setupMocks() {
   setUpAll(() {
     HttpOverrides.global = MockHttpOverrides();
+    SharedPreferences.setMockInitialValues({});
+    return Settings.init();
   });
 }

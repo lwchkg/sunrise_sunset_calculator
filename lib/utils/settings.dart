@@ -18,8 +18,8 @@ class Settings {
   static Future<void> init() async {
     Settings instance = getInstance();
     instance._store = await SharedPreferences.getInstance();
-    instance._brightness =
-        instance._store.getString(prefBrightness) ?? 'system';
+    instance
+        .setBrightness(instance._store.getString(prefBrightness) ?? 'system');
   }
 
   String getBrightness() => _brightness;
