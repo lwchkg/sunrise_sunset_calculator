@@ -14,8 +14,8 @@ void main() async {
   await findSystemLocale();
   initializeDateFormatting(Intl.systemLocale, null);
   tz.initializeTimeZones();
-  runApp(const MyApp());
   await Settings.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
