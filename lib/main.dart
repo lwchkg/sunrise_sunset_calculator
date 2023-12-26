@@ -14,8 +14,12 @@ void main() async {
   await findSystemLocale();
   initializeDateFormatting(Intl.systemLocale, null);
   tz.initializeTimeZones();
-  await Settings.init();
   runApp(const MyApp());
+  // The following must be run after runApp. While the Android app requires only
+  // WidgetsFlutterBinding.ensureInitialized(), this is not sufficient for the
+  // release web app build. (Note that the debug web app is not affected, so
+  // always test it in a release build.)
+  await Settings.init();
 }
 
 class MyApp extends StatefulWidget {
