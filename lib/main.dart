@@ -7,11 +7,14 @@ import 'package:intl/intl_standalone.dart'
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'router.dart';
+import '/utils/brightness.dart';
+import '/utils/settings.dart';
 
 void main() async {
   await findSystemLocale();
   initializeDateFormatting(Intl.systemLocale, null);
   tz.initializeTimeZones();
+  await Settings.init();
   runApp(const MyApp());
 }
 
@@ -26,26 +29,27 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _platformDispatcher = SchedulerBinding.instance.platformDispatcher;
-  var _brightness =
-      SchedulerBinding.instance.platformDispatcher.platformBrightness;
+  var _brightness = getCurrentBrightness();
 
   @override
   void initState() {
-    _platformDispatcher.onPlatformBrightnessChanged = () {
-      setState(() {
-        _brightness = _platformDispatcher.platformBrightness;
-      });
-    };
+    _platformDispatcher.onPlatformBrightnessChanged = platformBrightnessChanged;
+    Settings.getInstance().addBrightnessListener(brightnessSettingsChanged);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme =
+        ColorScheme.fromSeed(seedColor: Colors.purple, brightness: _brightness);
+
     return MaterialApp.router(
       title: 'Sunrise and Sunset Times',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.purple, brightness: _brightness),
+        appBarTheme: AppBarTheme(
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary),
+        colorScheme: colorScheme,
         // Override platform specific defaults.
         materialTapTargetSize: MaterialTapTargetSize.padded,
         visualDensity: VisualDensity.standard,
@@ -53,5 +57,25 @@ class _MyAppState extends State<MyApp> {
       routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
+  }
+
+  void brightnessSettingsChanged(String brightness) {
+    final newBrightness = brightness == "dark"
+        ? Brightness.dark
+        : brightness == "light"
+            ? Brightness.light
+            : _platformDispatcher.platformBrightness;
+    if (_brightness != newBrightness) {
+      setState(() {
+        _brightness = newBrightness;
+      });
+    }
+  }
+
+  void platformBrightnessChanged() {
+    if (Settings.getInstance().getBrightness() != 'system') return;
+    setState(() {
+      _brightness = _platformDispatcher.platformBrightness;
+    });
   }
 }
