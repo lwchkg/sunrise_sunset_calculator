@@ -8,7 +8,7 @@ class Settings {
   static final Settings _self = Settings._();
   late SharedPreferences _store;
 
-  late String _brightness;
+  String _brightness = 'system';
   final _brightnessListeners = <BrightnessListener>[];
 
   Settings._();
