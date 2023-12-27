@@ -21,6 +21,7 @@ jobs:
         with:
           flutter-version: '3.16.5'
           channel: 'stable'
+          cache: true
       - run: flutter test
 
   build_android:
@@ -32,10 +33,12 @@ jobs:
         with:
           flutter-version: '3.16.5'
           channel: 'stable'
+          cache: true
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '12.x'
+          cache: true
       - run: flutter build appbundle
 
   build_web:
@@ -47,5 +50,6 @@ jobs:
         with:
           flutter-version: '3.16.5'
           channel: 'stable'
+          cache: true
       - run: flutter build web
   
