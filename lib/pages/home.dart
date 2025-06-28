@@ -108,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void moveMap() {
-    _mapController.move(LatLng(_latitude, _longitude), _mapController.zoom);
+    _mapController.move(
+        LatLng(_latitude, _longitude), _mapController.camera.zoom);
   }
 
   void getOwnLocation() async {
@@ -223,11 +224,11 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: horizontalEdgeInsets,
             child: DropdownSearch<String>(
-              items: _locations,
-              dropdownDecoratorProps: DropDownDecoratorProps(
+              items: (filter, infiniteScrollProps) => _locations,
+              decoratorProps: DropDownDecoratorProps(
                 // Set to default text style of TextField.
                 baseStyle: Theme.of(context).textTheme.titleMedium,
-                dropdownSearchDecoration: const InputDecoration(
+                decoration: const InputDecoration(
                   contentPadding: textBoxContentPadding,
                   labelText: 'Time Zone',
                 ),
@@ -240,10 +241,10 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               popupProps: PopupProps.menu(
                 constraints: const BoxConstraints(maxHeight: 500),
-                favoriteItemProps: FavoriteItemProps<String>(
-                  favoriteItems: (_) =>
+                suggestedItemProps: SuggestedItemProps<String>(
+                  suggestedItems: (_) =>
                       [latLngToTimezoneString(_latitude, _longitude)],
-                  showFavoriteItems: true,
+                  showSuggestedItems: true,
                 ),
                 showSearchBox: true,
                 showSelectedItems: true,
