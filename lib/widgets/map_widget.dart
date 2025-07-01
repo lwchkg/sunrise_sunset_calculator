@@ -42,7 +42,8 @@ FlutterMap flutterMap({
       initialCenter: LatLng(latitude, longitude),
       // Disable scroll wheel and drag to make the underlying page scrollable.
       interactionOptions: const InteractionOptions(
-          flags: InteractiveFlag.all & ~InteractiveFlag.drag),
+          flags: InteractiveFlag.all & ~InteractiveFlag.drag,
+          scrollWheelVelocity: 0.0),
       maxZoom: _openStreetMapMaxZoomLevel,
       initialZoom: _zoomLevel,
     ),
