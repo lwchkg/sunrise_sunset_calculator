@@ -17,8 +17,8 @@ If you allow the app to access your location, the sunrise and sunset times are c
 ''';
 
 const String extraHelpButtonText = 'Detailed help...';
-final Uri extraHelpUrl = Uri.parse(
-    'https://github.com/lwchkg/sunrise_sunset_calculator/wiki/');
+final Uri extraHelpUrl =
+    Uri.parse('https://github.com/lwchkg/sunrise_sunset_calculator/wiki/');
 
 const String privacyPolicyButtonText = 'Privacy policy...';
 final Uri privacyPolicyUrl = Uri.parse(
@@ -33,19 +33,21 @@ class HelpPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(helpPageTitle),
       ),
-      body: ListView(
-        padding: allEdgeInsets,
-        children: <Widget>[
-          const Text(userManual),
-          TextButton(
-            child: const Text(extraHelpButtonText),
-            onPressed: () => launchUrl(extraHelpUrl),
-          ),
-          TextButton(
-            child: const Text(privacyPolicyButtonText),
-            onPressed: () => launchUrl(privacyPolicyUrl),
-          ),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: allEdgeInsets,
+          children: <Widget>[
+            const Text(userManual),
+            TextButton(
+              child: const Text(extraHelpButtonText),
+              onPressed: () => launchUrl(extraHelpUrl),
+            ),
+            TextButton(
+              child: const Text(privacyPolicyButtonText),
+              onPressed: () => launchUrl(privacyPolicyUrl),
+            ),
+          ],
+        ),
       ),
     );
   }

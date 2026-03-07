@@ -98,91 +98,94 @@ class _MonthlyInfoPageState extends State<MonthlyInfoPage> {
 
     return Scaffold(
       appBar: AppBarWithButton(title: Text(widget.title)),
-      body: ListView(
-        padding: allEdgeInsets,
-        children: <Widget>[
-          RichText(
-            text: TextSpan(
-              text: 'Latitude: ',
-              style: bodyTextStyle,
-              children: [
-                TextSpan(
-                    text: formatLatitude(widget.latitude),
-                    style: numberOutputStyle),
-              ],
+      body: SafeArea(
+        child: ListView(
+          padding: allEdgeInsets,
+          children: <Widget>[
+            RichText(
+              text: TextSpan(
+                text: 'Latitude: ',
+                style: bodyTextStyle,
+                children: [
+                  TextSpan(
+                      text: formatLatitude(widget.latitude),
+                      style: numberOutputStyle),
+                ],
+              ),
             ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: 'Longitude: ',
-              style: bodyTextStyle,
-              children: [
-                TextSpan(
-                    text: formatLongitude(widget.longitude),
-                    style: numberOutputStyle),
-              ],
+            RichText(
+              text: TextSpan(
+                text: 'Longitude: ',
+                style: bodyTextStyle,
+                children: [
+                  TextSpan(
+                      text: formatLongitude(widget.longitude),
+                      style: numberOutputStyle),
+                ],
+              ),
             ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: 'Location: ',
-              style: bodyTextStyle,
-              children: [
-                TextSpan(text: widget.location.name, style: numberOutputStyle),
-              ],
+            RichText(
+              text: TextSpan(
+                text: 'Location: ',
+                style: bodyTextStyle,
+                children: [
+                  TextSpan(
+                      text: widget.location.name, style: numberOutputStyle),
+                ],
+              ),
             ),
-          ),
-          verticalSpacingBox,
-          Row(
-            children: [
-              TextButton(
-                  key: const ValueKey('prevMonth'),
-                  onPressed: () {
-                    setState(() {
-                      month--;
-                      if (month <= 0) {
-                        month += 12;
-                        year -= 1;
-                      }
-                    });
-                  },
-                  child: Text('<', style: headingSizeStyle)),
-              Expanded(
-                  child: Center(
-                      child: Text(
-                          DateFormat.yMMM().format(DateTime.utc(year, month)),
-                          key: const ValueKey('month'),
-                          style: headingStyle))),
-              TextButton(
-                  key: const ValueKey('nextMonth'),
-                  onPressed: () {
-                    setState(() {
-                      month++;
-                      if (month > 12) {
-                        month -= 12;
-                        year++;
-                      }
-                    });
-                  },
-                  child: Text('>', style: headingSizeStyle)),
-            ],
-          ),
-          verticalSpacingBox,
-          MultiDayInfo(
-            latitude: widget.latitude,
-            longitude: widget.longitude,
-            location: widget.location,
-            days: daysOfMonth(tz.TZDateTime(widget.location, year, month)),
-          ),
-          // Add home button if this page is a standalone web page.
-          if (!context.canPop()) ...[
             verticalSpacingBox,
-            TextButton(
-              onPressed: () => context.go('/'),
-              child: const Text('Home'),
+            Row(
+              children: [
+                TextButton(
+                    key: const ValueKey('prevMonth'),
+                    onPressed: () {
+                      setState(() {
+                        month--;
+                        if (month <= 0) {
+                          month += 12;
+                          year -= 1;
+                        }
+                      });
+                    },
+                    child: Text('<', style: headingSizeStyle)),
+                Expanded(
+                    child: Center(
+                        child: Text(
+                            DateFormat.yMMM().format(DateTime.utc(year, month)),
+                            key: const ValueKey('month'),
+                            style: headingStyle))),
+                TextButton(
+                    key: const ValueKey('nextMonth'),
+                    onPressed: () {
+                      setState(() {
+                        month++;
+                        if (month > 12) {
+                          month -= 12;
+                          year++;
+                        }
+                      });
+                    },
+                    child: Text('>', style: headingSizeStyle)),
+              ],
             ),
+            verticalSpacingBox,
+            MultiDayInfo(
+              latitude: widget.latitude,
+              longitude: widget.longitude,
+              location: widget.location,
+              days: daysOfMonth(tz.TZDateTime(widget.location, year, month)),
+            ),
+            // Add home button if this page is a standalone web page.
+            if (!context.canPop()) ...[
+              verticalSpacingBox,
+              TextButton(
+                onPressed: () => context.go('/'),
+                child: const Text('Home'),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
