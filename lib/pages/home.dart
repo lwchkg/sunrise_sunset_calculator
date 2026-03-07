@@ -141,178 +141,180 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBarWithButton(title: Text(widget.title)),
-      body: ListView(
-        padding: verticalEdgeInsets,
-        children: <Widget>[
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: OutlinedButton(
-              onPressed: getOwnLocation,
-              child: const Text('Use your own location'),
+      body: SafeArea(
+        child: ListView(
+          padding: verticalEdgeInsets,
+          children: <Widget>[
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: OutlinedButton(
+                onPressed: getOwnLocation,
+                child: const Text('Use your own location'),
+              ),
             ),
-          ),
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: TextFormField(
-                    autovalidateMode: AutovalidateMode.always,
-                    controller: _latitudeController,
-                    decoration: const InputDecoration(
-                      contentPadding: textBoxContentPadding,
-                      labelText: 'Latitude',
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.always,
+                      controller: _latitudeController,
+                      decoration: const InputDecoration(
+                        contentPadding: textBoxContentPadding,
+                        labelText: 'Latitude',
+                      ),
+                      focusNode: _latitudeFocusNode,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      onChanged: (String? value) {
+                        if (value != null && isLatitude(value)) {
+                          setState(() {
+                            _latitude = NumberFormat.decimalPattern()
+                                .parse(value)
+                                .toDouble();
+                            _location = tz.getLocation(
+                                latLngToTimezoneString(_latitude, _longitude));
+                          });
+                          moveMap();
+                        }
+                      },
+                      validator: (String? value) {
+                        return value == null || isLatitude(value)
+                            ? null
+                            : 'Must be between -90 to 90.';
+                      },
                     ),
-                    focusNode: _latitudeFocusNode,
-                    keyboardType: const TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    onChanged: (String? value) {
-                      if (value != null && isLatitude(value)) {
-                        setState(() {
-                          _latitude = NumberFormat.decimalPattern()
-                              .parse(value)
-                              .toDouble();
-                          _location = tz.getLocation(
-                              latLngToTimezoneString(_latitude, _longitude));
-                        });
-                        moveMap();
-                      }
-                    },
-                    validator: (String? value) {
-                      return value == null || isLatitude(value)
-                          ? null
-                          : 'Must be between -90 to 90.';
-                    },
+                  ),
+                  horizontalSpacingBox,
+                  Flexible(
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.always,
+                      controller: _longitudeController,
+                      decoration: const InputDecoration(
+                        contentPadding: textBoxContentPadding,
+                        labelText: 'Longitude',
+                      ),
+                      focusNode: _longitudeFocusNode,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      onChanged: (String? value) {
+                        if (value != null && isLongitude(value)) {
+                          setState(() {
+                            _longitude = NumberFormat.decimalPattern()
+                                .parse(value)
+                                .toDouble();
+                            _location = tz.getLocation(
+                                latLngToTimezoneString(_latitude, _longitude));
+                          });
+                          moveMap();
+                        }
+                      },
+                      validator: (String? value) {
+                        return value == null || isLongitude(value)
+                            ? null
+                            : 'Must be between -180 to 180.';
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            verticalSpacingBox,
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: DropdownSearch<String>(
+                items: (filter, infiniteScrollProps) => _locations,
+                decoratorProps: DropDownDecoratorProps(
+                  // Set to default text style of TextField.
+                  baseStyle: Theme.of(context).textTheme.titleMedium,
+                  decoration: const InputDecoration(
+                    contentPadding: textBoxContentPadding,
+                    labelText: 'Time Zone',
                   ),
                 ),
-                horizontalSpacingBox,
-                Flexible(
-                  child: TextFormField(
-                    autovalidateMode: AutovalidateMode.always,
-                    controller: _longitudeController,
-                    decoration: const InputDecoration(
-                      contentPadding: textBoxContentPadding,
-                      labelText: 'Longitude',
-                    ),
-                    focusNode: _longitudeFocusNode,
-                    keyboardType: const TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    onChanged: (String? value) {
-                      if (value != null && isLongitude(value)) {
-                        setState(() {
-                          _longitude = NumberFormat.decimalPattern()
-                              .parse(value)
-                              .toDouble();
-                          _location = tz.getLocation(
-                              latLngToTimezoneString(_latitude, _longitude));
-                        });
-                        moveMap();
-                      }
-                    },
-                    validator: (String? value) {
-                      return value == null || isLongitude(value)
-                          ? null
-                          : 'Must be between -180 to 180.';
-                    },
+                onChanged: (String? T) {
+                  if (T == null) return;
+                  setState(() {
+                    _location = tz.getLocation(T);
+                  });
+                },
+                popupProps: PopupProps.menu(
+                  constraints: const BoxConstraints(maxHeight: 500),
+                  suggestedItemProps: SuggestedItemProps<String>(
+                    suggestedItems: (_) =>
+                        [latLngToTimezoneString(_latitude, _longitude)],
+                    showSuggestedItems: true,
                   ),
+                  showSearchBox: true,
+                  showSelectedItems: true,
                 ),
-              ],
-            ),
-          ),
-          verticalSpacingBox,
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: DropdownSearch<String>(
-              items: (filter, infiniteScrollProps) => _locations,
-              decoratorProps: DropDownDecoratorProps(
-                // Set to default text style of TextField.
-                baseStyle: Theme.of(context).textTheme.titleMedium,
-                decoration: const InputDecoration(
-                  contentPadding: textBoxContentPadding,
-                  labelText: 'Time Zone',
-                ),
+                selectedItem: _location.name,
               ),
-              onChanged: (String? T) {
-                if (T == null) return;
-                setState(() {
-                  _location = tz.getLocation(T);
-                });
-              },
-              popupProps: PopupProps.menu(
-                constraints: const BoxConstraints(maxHeight: 500),
-                suggestedItemProps: SuggestedItemProps<String>(
-                  suggestedItems: (_) =>
-                      [latLngToTimezoneString(_latitude, _longitude)],
-                  showSuggestedItems: true,
-                ),
-                showSearchBox: true,
-                showSelectedItems: true,
+            ),
+            verticalSpacingBox,
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: SingleDayInfo(
+                latitude: _latitude,
+                longitude: _longitude,
+                location: _location,
+                now: _now,
               ),
-              selectedItem: _location.name,
             ),
-          ),
-          verticalSpacingBox,
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: SingleDayInfo(
-              latitude: _latitude,
-              longitude: _longitude,
-              location: _location,
-              now: _now,
-            ),
-          ),
-          verticalSpacingBox,
-          SizedBox(
-            height:
-                min(MediaQuery.of(context).size.width * 3 / 4, maxMapHeight),
-            child: brightness == Brightness.light
-                ? flutterMap(
-                    latitude: _latitude,
-                    longitude: _longitude,
-                    controller: _mapController,
-                  )
-                : ColorFiltered(
-                    colorFilter: darkModeFilter,
-                    child: flutterMap(
+            verticalSpacingBox,
+            SizedBox(
+              height:
+                  min(MediaQuery.of(context).size.width * 3 / 4, maxMapHeight),
+              child: brightness == Brightness.light
+                  ? flutterMap(
                       latitude: _latitude,
                       longitude: _longitude,
                       controller: _mapController,
+                    )
+                  : ColorFiltered(
+                      colorFilter: darkModeFilter,
+                      child: flutterMap(
+                        latitude: _latitude,
+                        longitude: _longitude,
+                        controller: _mapController,
+                      ),
                     ),
-                  ),
-          ),
-          verticalSpacingBox,
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: Text('Today and next week', style: headingStyle),
-          ),
-          verticalSpacingBox,
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: MultiDayInfo(
-              latitude: _latitude,
-              longitude: _longitude,
-              location: _location,
-              days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
             ),
-          ),
-          verticalSpacingBox,
-          Padding(
-            padding: horizontalEdgeInsets,
-            child: TextButton(
-              onPressed: () {
-                context.push(Uri(path: '/monthly_info', queryParameters: {
-                  'latitude': _latitude.toString(),
-                  'longitude': _longitude.toString(),
-                  'location': _location.name,
-                  'year': _now.year.toString(),
-                  'month': _now.month.toString(),
-                }).toString());
-              },
-              child: const Text('More days...'),
+            verticalSpacingBox,
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: Text('Today and next week', style: headingStyle),
             ),
-          ),
-        ],
+            verticalSpacingBox,
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: MultiDayInfo(
+                latitude: _latitude,
+                longitude: _longitude,
+                location: _location,
+                days: daysFrom(tz.TZDateTime.from(_now, _location), 7 + 1),
+              ),
+            ),
+            verticalSpacingBox,
+            Padding(
+              padding: horizontalEdgeInsets,
+              child: TextButton(
+                onPressed: () {
+                  context.push(Uri(path: '/monthly_info', queryParameters: {
+                    'latitude': _latitude.toString(),
+                    'longitude': _longitude.toString(),
+                    'location': _location.name,
+                    'year': _now.year.toString(),
+                    'month': _now.month.toString(),
+                  }).toString());
+                },
+                child: const Text('More days...'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
