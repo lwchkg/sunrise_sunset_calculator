@@ -17,7 +17,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.lwchkg.sunrise_sunset_calculator"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "28.1.13356709"
+    ndkVersion = "29.0.14206865"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
