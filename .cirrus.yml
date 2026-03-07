@@ -6,7 +6,7 @@ test_task:
     folder: ~/.pub-cache
   test_script:
     - flutter pub get > update_report.txt 2>&1
-    - flutter test --machine --offline > report.json
+    - flutter test --file-reporter json:report.json
   always:
     update_artifacts:
       path: update_report.txt
