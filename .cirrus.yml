@@ -5,10 +5,10 @@ test_task:
   pub_cache:
     folder: ~/.pub-cache
     populate_script:
-      - flutter pub get
+      - flutter pub get > update_report.txt
   test_script:
-    - flutter test --machine > report.json
+    - flutter test --machine > flutter_report.json
   always:
     report_artifacts:
-      path: report.json
+      path: flutter_report.json
       format: flutter
