@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   intl: ^0.20.2
-  timezone: ^0.10.1
+  timezone: ^0.11.0
   lat_lng_to_timezone: ^0.2.0
   dropdown_search: ^6.0.2
   geolocator: ^14.0.1
