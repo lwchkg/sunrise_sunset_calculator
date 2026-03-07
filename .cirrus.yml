@@ -4,8 +4,9 @@ container:
 test_task:
   pub_cache:
     folder: ~/.pub-cache
+    populate_script:
+      - flutter pub get
   test_script:
-    - flutter pub get
     - flutter test --machine > report.json
   always:
     report_artifacts:
